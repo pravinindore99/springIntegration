@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:int="http://www.springframework.org/schema/integration"
+       xmlns:jms="http://www.springframework.org/schema/integration/jms"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/integration
+http://www.springframework.org/schema/integration/spring-integration.xsd
+http://www.springframework.org/schema/integration/jms
+http://www.springframework.org/schema/integration/jms/spring-integration-jms.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <jms:message-driven-channel-adapter channel="map" extract-payload="true" destination="getTransformerQueue" connection-factory="jmsConnectionFactory"></jms:message-driven-channel-adapter>
+    <int:map-to-object-transformer input-channel="map" output-channel="json" type="com.example.jmsTransformer.Customer"></int:map-to-object-transformer>
+    <int:object-to-json-transformer input-channel="json" output-channel="output"></int:object-to-json-transformer>
+
+</beans>
